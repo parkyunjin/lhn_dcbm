@@ -8,10 +8,10 @@ dcrc/
 ├── data/                # Raw real datasets
 ├── code/                
 │   ├── algorithms/      # Folder of community detection algorithm files
-│   ├── matlab/          # Folder for conducting community detection and evaluation
-│   ├── prev_curv/       # Folder for BFC calculation codes
-│   ├── simulation/      # Folder for simulated experiments in the paper
-│   └── real_data/       # Folder for real datat applications
+│   ├── matlab/          # Codes for conducting community detection and evaluation 
+│   ├── prev_curv/       # Codes for BFC calculation
+│   ├── simulation/      # Codes for simulations (Experiments 1 - 5)
+│   └── real_data/       # Real data application codes
 └── README.md            
 ```
 
