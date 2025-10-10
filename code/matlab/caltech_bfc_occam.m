@@ -1,5 +1,5 @@
 
-addpath /OCCAM
+addpath /code/algorithm/OCCAM
 addpath /data
 
 % Set random seed

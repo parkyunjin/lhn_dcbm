@@ -1,8 +1,9 @@
+### Exp 4 ###
+
 library(igraph)
 library(ggplot2)
 source("/code/linear_curv.R")
 
-# —————— Functions ——————
 gen_thm_dcsbm <- function(n, gamma_vector, alpha1, alpha2, B, seed = NULL) {
   if(!is.null(seed)) set.seed(seed)
   k <- nrow(B)
@@ -17,9 +18,10 @@ gen_thm_dcsbm <- function(n, gamma_vector, alpha1, alpha2, B, seed = NULL) {
   
   adj <- matrix(0, n, n)
   for(i in seq_len(n)) for(j in i:n) {
-    p_ij <- min(1, B[membership[i], membership[j]] * theta[i] * theta[j])
+    p_ij <- pmin(1, B[membership[i], membership[j]] * theta[i] * theta[j])
     e <- rbinom(1,1,p_ij)
-    adj[i,j] <- e; adj[j,i] <- e
+    adj[i,j] <- e
+    adj[j,i] <- e
   }
   
   g <- graph_from_adjacency_matrix(adj, mode="undirected", diag=FALSE)
@@ -85,20 +87,21 @@ compute_all_sn <- function(g, theta, comm_mat, P, membership) {
   list(graph=g, edge_table=edge_df)
 }
 
-# —————— Main ——————
+## Main code
 
-# parameters
+# Parameters
 n     <- 1000 #3000, 5000
-P     <- matrix(0.07, nrow=2, ncol=2); diag(P) <- 0.1
+P     <- matrix(0.07, nrow=2, ncol=2)
+diag(P) <- 0.1
 gamma <- c(0.5, 0.5)
 alpha1 <- 1; alpha2 <- 1
 seed <- 123
 
 
-# generate DCBM
+# Generate DCBM
 res1 <- gen_thm_dcsbm(n, gamma, alpha1, alpha2, P, seed=seed)
 
-# dcrc_star
+# Calculate DCRC_star
 res2 <- compute_all_dcrc_star(
   res1$graph, V(res1$graph)$theta,
   res1$comm_mat, P, V(res1$graph)$membership
@@ -118,11 +121,11 @@ edges_df <- as_data_frame(final_g, what="edges")
 edges_df$thm4 <- (edges_df$nrc - edges_df$dcrc_star) / (edges_df$dcrc_star * edges_df$sn)
 edges_df$thm5 <- (edges_df$nrc - edges_df$dcrc_star) / (edges_df$nrc / sqrt(edges_df$minni))
 
-# save .rds
-rds_file <- sprintf("edges_df_n_%d.rds", n)
+# Save edge_df in .rds
+rds_file <- sprintf("/result/thm/edges_df_n_%d.rds", n)
 saveRDS(edges_df, file=rds_file)
 
-# compute and save summary
+# Compute and save summary
 df1 <- data.frame(x = edges_df$thm4)
 df2 <- data.frame(x = edges_df$thm5)
 
@@ -136,7 +139,7 @@ sum2 <- list(
   sd   = sd(df2$x)
 )
 
-txt_file <- sprintf("summary_n_%d.txt", n)
+txt_file <- sprintf("/result/thm/summary_n_%d.txt", n)
 sink(txt_file)
 cat("=== thm4 ===\n")
 cat("Mean: ", sum1$mean,   "\n")

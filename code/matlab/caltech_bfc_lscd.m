@@ -1,6 +1,6 @@
 
-addpath /LSCD/real_data/main_functions
-addpath /LSCD/real_data/util
+addpath /code/algorithm/LSCD/real_data/main_functions
+addpath /code/algorithm/LSCD/real_data/util
 addpath /data
 
 % Set random seed

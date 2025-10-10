@@ -1,4 +1,6 @@
 library(ggplot2)
+library(tidyr)
+library(dplyr)
 
 # One-hot vector for community of i
 one_hot <- function(z, K) {
@@ -34,6 +36,7 @@ compute_En_i <- function(theta, z, P) {
     ez <- one_hot(z[i], K)
     eta_term <- as.numeric(t(ez) %*% P %*% eta)
     En_i[i] <- (1 / K) * theta[i] * theta1_norm * eta_term - theta[i]^2
+    #En_i[i] <- (1 / K) * theta[i] * theta1_norm * eta_term
   }
   return(En_i)
 }
@@ -83,6 +86,22 @@ LRC_diff <- function(i, j, k, theta, z, P){
   return(result)
 }
 
+
+
+Jac_diff <- function(i, j, k, theta, z, P){
+  Eni_vector <- compute_En_i(theta, z, P)
+  Eni <- Eni_vector[i]
+  Enj <- Eni_vector[j]
+  Enk <- Eni_vector[k]
+  
+  Enij <- compute_En_ij(i, j, theta, z, P)
+  Enik <- compute_En_ij(i, k, theta, z, P)
+  
+  result <-  Enij/(Eni+Enj - Enij) - Enik/(Eni+Enk-Enik)
+  
+  return(result)
+}
+
 DCRC_diff <- function(i, j, k, theta, z, P){
   Eni_vector <- compute_En_i(theta, z, P)
   Eni <- Eni_vector[i]
@@ -101,7 +120,7 @@ library(ggplot2)
 library(tidyr)
 library(dplyr)
 
-plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_path = "curvature_diffs.pdf") {
+plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_path = "/result/curvature_diffs_line_type.pdf") {
   n <- 100
   K <- 2
   z <- c(rep(1, n), rep(2, n))
@@ -116,26 +135,29 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
   
   for (val in theta_range) {
     theta <- rep(1, 2 * n)
-    theta[n + 1] <- val  
+    theta[n + 1] <- val  # vary this one only
     
     frc_val <- FRC_diff(i, j, k, theta, z, P) / 200
     lrc_val <- LRC_diff(i, j, k, theta, z, P)
+    jac_val <- Jac_diff(i, j, k, theta, z, P)
     dcrc_val <- DCRC_diff(i, j, k, theta, z, P) * 200
     
     results <- rbind(results, data.frame(
       theta_nplus1 = val,
       FRC = frc_val,
+      Jaccard = jac_val,
       LRC = lrc_val,
       DCRC = dcrc_val
     ))
   }
   
-  results_long <- pivot_longer(results, cols = c(FRC, LRC, DCRC),
+  results_long <- pivot_longer(results, cols = c(FRC, Jaccard, LRC, DCRC),
                                names_to = "Metric", values_to = "Value")
   
   results_long <- results_long %>%
     mutate(Metric = recode(Metric,
                            FRC = "FRC",
+                           Jaccard = "Jaccard",
                            LRC = "LRC",
                            DCRC = "DCRC"))
   
@@ -143,7 +165,6 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
   p <- ggplot(results_long, aes(x = theta_nplus1, y = Value, color = Metric)) +
     geom_line(linewidth = 2) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "black", linewidth = 2) +
-    #geom_point() +
     labs(x = "Degree of heterogeneity",
          y = "(Within) - (across) curvature",
          color = "Curvature") +
@@ -156,13 +177,14 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
           legend.text = element_text(size = 25),
           legend.key.width = unit(2.5, "cm"))+
     scale_color_manual( 
-      values = c("FRC" = "#00BA38", "DCRC" = "#F8766D", "LRC" = "#619CFF"),
-      breaks = c("FRC", "LRC", "DCRC")  
+      values = c("FRC" = "#7CAE00", "Jaccard" = "#00BFC4",  "LRC" = "#C77CFF", "DCRC" = "red"),
+      breaks = c("FRC", "Jaccard", "LRC", "DCRC") 
     )
   
-  ggsave(save_path, p, width = 10, height = 6)
+  ggsave(save_path, p, width = 10, height = 6.5)
   
   return(results)
 }
 
+# Run and save
 plot_all_diffs()

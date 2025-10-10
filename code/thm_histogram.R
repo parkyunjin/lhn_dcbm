@@ -1,9 +1,11 @@
+### Plot results for Exp 4 ###
+
 library(igraph)
 library(ggplot2)
 library(nortest)
 
-# Read data
-rds_dir <- "/thm"
+# Load data
+rds_dir <- "/result/thm"
 
 rds_files <- list.files(
   path       = rds_dir,
@@ -89,4 +91,4 @@ for (i in seq_along(plot_order)) {
 
 
 par(op); dev.off()
-message("Saved 1x6 histogram to: ", pdf_path)
+message("Saved histogram to: ", pdf_path)

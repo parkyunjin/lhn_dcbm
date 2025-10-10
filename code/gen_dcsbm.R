@@ -1,7 +1,3 @@
-# Load the igraph package
-if (!require("igraph")) {
-  install.packages("igraph")
-}
 library(igraph)
 
 # Function to generate a DCSBM graph with gamma, alpha, and B as inputs, and an optional seed
@@ -31,12 +27,8 @@ generate_dcsbm <- function(n, gamma_vector, alpha1, alpha2, B, seed = NULL) {
   membership <- rep(1:k, sizes)
   
   # Generate degree correction parameters (theta) for each node
-  # Range of theta is from alpha to 1
+  # Range of theta is from alpha1 to alpha2
   theta <- runif(n, min = alpha1, max = alpha2)
-  # Scale to ensure theta[i] * theta[j] * max(B) <= 1
-  #max_theta_prod <- max(theta)^2
-  #scale_factor <- sqrt(1 / (max(B) * max_theta_prod))
-  #theta <- theta * scale_factor
   
   # Initialize the adjacency matrix
   adj_matrix <- matrix(0, n, n)

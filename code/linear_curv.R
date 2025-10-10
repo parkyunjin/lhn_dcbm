@@ -38,7 +38,7 @@ cal_linear_curv <- function(g) {
       common_neighbors_matrix[cbind(edges[, 1], edges[, 2])]/pmin(num_neighbors[edges[,1]],num_neighbors[edges[,2]]),
     nrc = common_neighbors_matrix[cbind(edges[, 1], edges[, 2])]/(num_neighbors[edges[,1]]*num_neighbors[edges[,2]]), 
     jac_coef = common_neighbors_matrix[cbind(edges[, 1], edges[, 2])]/(num_neighbors[edges[,1]]+num_neighbors[edges[,2]]-common_neighbors_matrix[cbind(edges[, 1], edges[, 2])]),
-    jac_curv = -2 + 3*common_neighbors_matrix[cbind(edges[, 1], edges[, 2])]/(num_neighbors[edges[,1]]+num_neighbors[edges[,2]]-common_neighbors_matrix[cbind(edges[, 1], edges[, 2])])
+    minni = pmin(num_neighbors[edges[, 1]], num_neighbors[edges[, 2]])
   )
   
   # Reorder the edge metrics to match igraph edge order
@@ -54,7 +54,7 @@ cal_linear_curv <- function(g) {
   E(g)$nrc <- df_ordered$nrc
   E(g)$a2 <- df_ordered$num_common_neighbors
   E(g)$jac_coef <- df_ordered$jac_coef
-  E(g)$jac_curv <- df_ordered$jac_curv
+  E(g)$minni <- df_ordered$minni
   E(g)$membership <- df_ordered$membership
   
   return(g)

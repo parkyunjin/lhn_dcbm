@@ -1,10 +1,8 @@
-% Add necessary paths
-addpath('/data');
-addpath('/ScorePlus-code/Matlab/Util');
+addpath /data
+addpath /code/algorithm/ScorePlus-code/Matlab/Util
 
 % Define datasets and algorithms
 algorithms = {'cmm', 'lscd', 'occam', 'rsc', 'score', 'scoreplus'};
-%'cmm', 'lscd', 'occam', 'rsc', 'score', 'scoreplus'}
 
 datasetPath = '/data/caltech.mat';
 resultsPath = '/caltech/bfc/results';

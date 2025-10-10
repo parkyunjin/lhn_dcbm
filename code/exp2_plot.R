@@ -98,4 +98,4 @@ p2 <- ggplot(combined_df, aes(x = percentile, y = delta, color = algorithm)) +
 
 
 
-ggsave("nrc_performance_plot.pdf", plot = p2, width = 10, height = 6)
+ggsave("dcrc_performance_plot.pdf", plot = p2, width = 10, height = 6)

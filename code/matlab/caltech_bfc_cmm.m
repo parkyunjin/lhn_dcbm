@@ -1,6 +1,5 @@
-
 addpath /data
-addpath /cmm
+addpath /algorithm/cmm
 
 rng(42);  % Fix seed
 m = 8;    % Community number

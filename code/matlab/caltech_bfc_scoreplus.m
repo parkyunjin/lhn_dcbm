@@ -1,6 +1,6 @@
 
 addpath /data
-addpath /ScorePlus-code/Matlab/main_functions
+addpath /code/algorithm/ScorePlus-code/Matlab/main_functions
 
 % Set random seed
 rng(42);
