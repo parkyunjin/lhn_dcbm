@@ -16,6 +16,7 @@ dcrc/
 ```
 
 ## Package requirement
+### Python
 - Python >= 3.9
 - [PyTorch](https://pytorch.org/get-started/locally/) >= 2.1.2
 - [Networkx](https://networkx.org/documentation/stable/install.html)
@@ -25,7 +26,8 @@ dcrc/
 - [seaborn](https://seaborn.pydata.org) >= 0.13.0
 - torchVision
 - torchaudio
-- R 4.4.0
+### R
+-R 4.4.0
 - ggplot2
 - igraph
 - R.matlab
