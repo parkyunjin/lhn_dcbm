@@ -11,13 +11,36 @@ dcrc/
 │   ├── matlab/          # Folder for conducting community detection and evaluation
 │   ├── prev_curv/       # Folder for BFC calculation codes
 │   ├── simulation/      # Folder for simulated experiments in the paper
-│   ├── real_data/       # Folder for real datat applications
-│   └──
+│   └── real_data/       # Folder for real datat applications
 └── README.md            
 ```
 
 ## Package requirement
+- Python >= 3.9
+- [PyTorch](https://pytorch.org/get-started/locally/) >= 2.1.2
+- [Networkx](https://networkx.org/documentation/stable/install.html)
+- [matplotlib](https://matplotlib.org) >= 3.8.2
+- [numpy](https://numpy.org) >= 1.26.2
+- [pandas](https://pandas.pydata.org) >= 2.1.4
+- [seaborn](https://seaborn.pydata.org) >= 0.13.0
+- torchVision
+- torchaudio
+- R 4.4.0
+- ggplot2
+- igraph
+- R.matlab
+- readr
+- dplyr
+- tidyr
+- stringr
+- broom
+- rstatix
+- ggpubr
+- gridExtra
+- showtext
 
+
+  
 ## References
 - Yudong Chen, Xiaodong Li, and Jiaming Xu. Convexified modularity maximization for degree-corrected stochastic block models. Annals of Statistics, 46(4):1573–1602, 2018. doi: 10.1214/
 17-AOS1595.
