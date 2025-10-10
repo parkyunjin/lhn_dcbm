@@ -23,11 +23,17 @@ dcrc/
 - [matplotlib](https://matplotlib.org) >= 3.8.2
 - [numpy](https://numpy.org) >= 1.26.2
 - [pandas](https://pandas.pydata.org) >= 2.1.4
-- [seaborn](https://seaborn.pydata.org) >= 0.13.0
 - torchVision
 - torchaudio
+
+
+**Install via pip:**
+```bash
+pip install torch torchvision torchaudio networkx matplotlib numpy pandas
+```
+  
 ### R
--R 4.4.0
+- R 4.4.0
 - ggplot2
 - igraph
 - R.matlab
@@ -41,8 +47,16 @@ dcrc/
 - gridExtra
 - showtext
 
+**Install in R:**
+```r
+install.packages(c(
+  "ggplot2", "igraph", "R.matlab", "readr", "dplyr", "tidyr",
+  "stringr", "broom", "rstatix", "ggpubr", "gridExtra", "showtext"
+))
 
-  
+```
+
+
 ## References
 - Yudong Chen, Xiaodong Li, and Jiaming Xu. Convexified modularity maximization for degree-corrected stochastic block models. Annals of Statistics, 46(4):1573–1602, 2018. doi: 10.1214/
 17-AOS1595.
