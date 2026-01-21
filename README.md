@@ -1,6 +1,6 @@
-# DEGREE-CORRECTED RICCI CURVATURE FOR NETWORKS
+# Revisiting Network Curvature and Similarity Metrics for Community Detection under Degree-Corrected Block Models
 
-This is a repository for a paper titled *Degree-corrected Ricci Curvature for Networks*.
+This is a repository for a paper titled *Revisiting Network Curvature and Similarity Metrics for Community Detection under Degree-Corrected Block Models*.
 
 ## Repository Structure
 ```
