@@ -12,6 +12,7 @@ dcrc/
 │   ├── prev_curv/       # Codes for BFC calculation
 │   ├── simulation/      # Codes for simulations (Experiments 1 - 5)
 │   └── real_data/       # Real data application codes
+├── rebuttal/            # Rebuttal figures and tables
 └── README.md            
 ```
 
